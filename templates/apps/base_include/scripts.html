@@ -1,0 +1,140 @@
+{# Scriptis for phone number this code does to beatiful +998-(__)___-__-__ do this #}
+<script>
+    $('#phone-mask').inputmask({
+        "mask": "+\\9\\98(99) 999-99-99"
+    });
+    $('#messages-modal').modal('show');
+</script>
+{# And Ajax for phone number#}
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>#}
+{#<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>#}
+
+
+{#//////////////////////////////////////////////////////////////////////// ajar for region and district /////////////////////////#}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var regionSelect = document.getElementById('id_region');
+        var districtSelect = document.getElementById('id_district');
+        var selectedDistrict = "{{ district.pk }}" || "";  // Foydalanuvchining tanlagan tumani (agar mavjud bo'lsa)
+
+        // Viloyat o'zgarganda
+        regionSelect.addEventListener('change', function () {
+            var regionId = this.value;
+
+            if (!regionId) {
+                districtSelect.innerHTML = '<option value="">Avval viloyatni tanlang</option>';
+                return;
+            }
+
+            // AJAX orqali viloyatga tegishli tumanlarni olish
+            fetch(`/get-districts/${regionId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    districtSelect.innerHTML = ''; // Oldingi tumanlarni tozalash
+                    if (data.districts.length > 0) {
+                        data.districts.forEach(function (district) {
+                            var option = document.createElement('option');
+                            option.value = district.id;
+                            option.textContent = district.name;
+                            if (district.id == selectedDistrict) {
+                                option.selected = true;  // Foydalanuvchining tumani tanlanadi
+                            }
+                            districtSelect.appendChild(option);
+                        });
+                    } else {
+                        districtSelect.innerHTML = '<option value="">Tumanlar mavjud emas</option>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Xatolik:', error);
+                });
+        });
+
+        // Sahifa yuklanganida viloyatga mos tumanlarni avtomatik yuklash (foydalanuvchi tanlagan viloyat bo'lsa)
+        if (regionSelect.value) {
+            regionSelect.dispatchEvent(new Event('change'));
+        }
+    });
+
+</script>
+
+
+{# ////////////////////////////////////////////////// ajax for like ////////////////////////////////////////////////////#}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.wish-btn').click(function () {
+            const product_id = $(this).data('product-id');
+            var button = $(this)
+            var csrftoken = getCookie('csrftoken');
+            if (product_id) {
+                $.ajax({
+                    url: '{% url "wishlist" %}',
+                    type: 'POST',
+                    data: {
+                        'product_id': product_id
+                    },
+                    headers: { 'X-CSRFToken': csrftoken },
+                    success: function (response) {
+                        console.log(response.response)
+                        if (response.response === true) {
+                            button.addClass('bg-danger')
+                        } else {
+                            button.removeClass('bg-danger')
+                        }
+
+                    }
+                });
+            }
+
+        });
+    });
+
+</script>
+
+{#///////////////////////////////////////////////// ajax for copy  /////////////////////////////////////////////////#}
+
+<script>
+
+        $(".card-body .copy_ref_bn").on('click', function () {
+            var copyText = $(this).parent().find('.ref_link').get(0);
+
+            copyText.select();
+            document.execCommand("copy");
+            $(this).text('Nusxa olindi');
+        });
+    </script>
+
+
+
+{#//////////////////////////////////////////////////// ajax for show //////////////////////////////////////////////#}
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        $('.btn_open_modal').click(function (){
+            var product_id = $(this).attr('name');
+            var salesman_price = $(this).closest('.card').find('.salesman_price strong').text();
+
+            // Mahsulot IDni yashirin elementga qo'ying
+            $('#hidden_product').val(product_id);
+            $('#id_discount').attr("placeholder" , "Chegirma miqdori:" + salesman_price + " so'mgacha");
+
+        });
+    });
+</script>
+
+
+
+{#/////////////////////////////////////////////////////////// ajax for number card //////////////////////////////////#}
+
+<script>
+    $('#phone-mask').inputmask({
+        "mask": "+\\9\\98(99) 999-99-99"
+    });
+    $('#messages-modal').modal('show');
+</script>
+
+
+
+

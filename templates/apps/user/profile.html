@@ -1,0 +1,62 @@
+{% extends 'apps/base_include/base.html' %}
+
+
+
+{% block main %}
+    <div class="card">
+        <div class="row g-0 text-center fs--1">
+            <div class="col-12 col-md-12">
+                <div class="bg-white dark__bg-1100 p-3 h-100"><img
+                        class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
+                        src="https://alijahon.uz/media/img/nouser.png" alt="" width="100">
+                    <h6 class="mb-1">
+                        <h5><p>998{{ request.user.phone_number }}</p></h5>
+                        <h5><p>998{{ request.user.phone_number }}</p></h5>
+                    </h6>
+                    <p class="fs--2 mb-1"><a class="btn btn-link text-700" href="{% url 'profile-edit' %}">Sozlamalarga
+                        o'tish</a></p>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body fs--1 p-0">
+
+            <a class="border-bottom-0 notification rounded-0 border-x-0 border border-300"
+               href="/profile/liked-products">
+                <div class="notification-avatar">
+                    <div class="avatar avatar-xl me-3">
+                        <div class="avatar-emoji rounded-circle "><span role="img" aria-label="Emoji">📌</span></div>
+                    </div>
+                </div>
+                <div class="notification-body">
+                    <p class="mb-1"><strong>Mening sevimlarim</strong></p>
+                </div>
+            </a>
+
+            <a class="border-bottom-0 notification rounded-0 border-x-0 border border-300"
+               href="/profile/ordered-products">
+                <div class="notification-avatar">
+                    <div class="avatar avatar-xl me-3">
+                        <div class="avatar-emoji rounded-circle "><span role="img" aria-label="Emoji">🏷️</span></div>
+                    </div>
+                </div>
+                <div class="notification-body">
+                    <p class="mb-1"><strong>Mening buyurtmalarim</strong></p>
+                </div>
+            </a>
+
+            <a class="border-bottom-0 notification rounded-0 border-x-0 border border-300" href="#">
+                <div class="notification-avatar">
+                    <div class="avatar avatar-xl me-3">
+                        <div class="avatar-emoji rounded-circle "><span role="img" aria-label="Emoji">💬</span></div>
+                    </div>
+                </div>
+                <div class="notification-body">
+                    <p class="mb-1"><strong>Mijozlarni qo'llab-quvvatlash</strong></p>
+                </div>
+            </a>
+
+        </div>
+    </div>
+{% endblock %}
